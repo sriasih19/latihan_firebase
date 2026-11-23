@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -24,6 +25,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _emailC = TextEditingController();
+  final _passC = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailC.dispose();
+    _passC.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +51,29 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 4),
               const Text('Silakan login untuk melanjutkan'),
               const SizedBox(height: 32),
+
+              // Email
+              TextFormField(
+                controller: _emailC,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email_outlined),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Password
+              TextFormField(
+                controller: _passC,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(),
+                ),
+              ),
             ],
           ),
         ),
