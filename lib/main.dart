@@ -29,12 +29,22 @@ class _LoginPageState extends State<LoginPage> {
   final _emailC = TextEditingController();
   final _passC = TextEditingController();
   bool _obscure = true;
+  bool _loading = false;
 
   @override
   void dispose() {
     _emailC.dispose();
     _passC.dispose();
     super.dispose();
+  }
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _loading = true);
+    await Future.delayed(const Duration(seconds: 1));
+    if (!mounted) return;
+    setState(() => _loading = false);
   }
 
   @override
@@ -96,6 +106,28 @@ class _LoginPageState extends State<LoginPage> {
                     if (v.length < 6) return 'Password minimal 6 karakter';
                     return null;
                   },
+                ),
+                const SizedBox(height: 24),
+
+                // Tombol login
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: FilledButton(
+                    onPressed: _loading ? null : _submit,
+                    child: _loading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Text('Login'),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Demo: admin@mail.com / 123456',
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ],
             ),
