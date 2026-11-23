@@ -45,6 +45,14 @@ class _LoginPageState extends State<LoginPage> {
     await Future.delayed(const Duration(seconds: 1));
     if (!mounted) return;
     setState(() => _loading = false);
+
+    if (_emailC.text.trim() == 'admin@mail.com' && _passC.text == '123456') {
+      // navigasi ditambah di commit 9
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Email atau password salah')),
+      );
+    }
   }
 
   @override
