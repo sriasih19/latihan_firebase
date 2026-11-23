@@ -7,14 +7,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login App',
-      home: LoginPage(),
+      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+      home: const LoginPage(),
     );
   }
 }
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,8 +26,24 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Halaman Login')),
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.lock_person, size: 72, color: Colors.indigo),
+              const SizedBox(height: 12),
+              Text('Selamat Datang',
+                  style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 4),
+              const Text('Silakan login untuk melanjutkan'),
+              const SizedBox(height: 32),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
