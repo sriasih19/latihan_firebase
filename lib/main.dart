@@ -47,7 +47,10 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _loading = false);
 
     if (_emailC.text.trim() == 'admin@mail.com' && _passC.text == '123456') {
-      // navigasi ditambah di commit 9
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => HomePage(email: _emailC.text.trim())),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Email atau password salah')),
@@ -142,6 +145,20 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+class HomePage extends StatelessWidget {
+  final String email;
+  const HomePage({super.key, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home')),
+      body: Center(child: Text('Selamat datang, $email')),
     );
   }
 }
